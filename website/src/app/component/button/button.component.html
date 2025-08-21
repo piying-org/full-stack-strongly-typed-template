@@ -1,0 +1,102 @@
+<div class="flex w-full">
+  @switch (type$$()) {
+    @case ('raised') {
+      <button
+        mat-raised-button
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        {{ label() }}
+      </button>
+    }
+    @case ('stroked') {
+      <button
+        mat-stroked-button
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        {{ label() }}
+      </button>
+    }
+    @case ('flat') {
+      <button
+        mat-flat-button
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        {{ label() }}
+      </button>
+    }
+    @case ('icon') {
+      <button
+        mat-icon-button
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        <mat-icon [fontSet]="fontSet()!" [fontIcon]="icon()!"></mat-icon>
+      </button>
+    }
+    @case ('fab') {
+      <button
+        mat-fab
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        <mat-icon [fontSet]="fontSet()!" [fontIcon]="icon()!"></mat-icon>
+      </button>
+    }
+    @case ('mini-fab') {
+      <button
+        mat-mini-fab
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        <mat-icon [fontSet]="fontSet()!" [fontIcon]="icon()!"></mat-icon>
+      </button>
+    }
+    @default {
+      <button
+        mat-button
+        [color]="color()"
+        [disabled]="disabled() || loading$()"
+        class="flex-1"
+        (click)="onClicked()"
+        [type]="buttonType()"
+        [matTooltip]="description()"
+        [matTooltipDisabled]="disabled() || loading$()"
+      >
+        {{ label() }}
+      </button>
+    }
+  }
+</div>

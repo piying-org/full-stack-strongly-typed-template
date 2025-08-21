@@ -1,0 +1,23 @@
+<div mat-dialog-title>{{ data.type === 'new' ? '新增' : '修改' }}</div>
+<div mat-dialog-content class="imat-c-on-surface density-0 !pt-2">
+  <piying-view
+    [schema]="data.schema"
+    [options]="options"
+    [model]="data$()"
+    (modelChange)="model$.set($event)"
+    #formly
+  ></piying-view>
+</div>
+<div mat-dialog-actions class="!tw-justify-end tw-flex">
+  <button
+    mat-flat-button
+    (click)="apply()"
+    color="primary"
+    [disabled]="
+      loading$() || formly.form$$()?.invalid || formly.form$$()?.pristine
+    "
+  >
+    应用
+  </button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</div>

@@ -1,0 +1,86 @@
+<div class="mat-elevation-z2">
+  <table
+    mat-table
+    class="w-full"
+    [dataSource]="data$$()"
+    matSort
+    (matSortChange)="sortChange($event)"
+  >
+    @for (item of defineColumn(); track $index) {
+      <ng-container [matColumnDef]="item.key ?? '__' + $index">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          [disabled]="!item.sortable"
+        >
+          {{ item.header }}
+        </th>
+        <td mat-cell *matCellDef="let data">
+          @let result =
+            contentData | pure: { data: data, index: $index } : item;
+          @switch (result.type) {
+            @case ('string') {
+              {{ result.value }}
+            }
+            @case ('enum') {
+              {{ result.enum[result.value] }}
+            }
+            @case ('date') {
+              {{ result.value | date: result.format }}
+            }
+            @case ('number') {
+              {{ result.value | number: result.format }}
+            }
+          }
+        </td>
+        @if ($first && createSchema()) {
+          <td
+            mat-footer-cell
+            *matFooterCellDef
+            [attr.colspan]="defineColumn().length"
+          >
+            <button
+              (click)="add()"
+              mat-flat-button
+              [disabled]="!gate$$().addItem"
+            >
+              添加
+            </button>
+          </td>
+        }
+      </ng-container>
+    }
+    @if (action()?.length) {
+      <ng-container matColumnDef="__ACTION">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>操作</th>
+        <td mat-cell *matCellDef="let data">
+          @for (item of action(); track $index) {
+            <button
+              mat-icon-button
+              (click)="actionChange(item, data)"
+              [matTooltip]="item.description"
+            >
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </button>
+          }
+        </td>
+      </ng-container>
+    }
+    @let rowList = displayedColumns | pure: defineColumn() : showColumns();
+    <tr mat-header-row *matHeaderRowDef="rowList"></tr>
+    <tr mat-row *matRowDef="let row; columns: rowList"></tr>
+    @let footList = createSchema() ? [rowList[0]] : [];
+    <tr mat-footer-row *matFooterRowDef="footList"></tr>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [length]="count$$()"
+    [pageIndex]="pageIndex$()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="pageSizeOptions()"
+    (page)="pageChange($event)"
+  >
+  </mat-paginator>
+</div>

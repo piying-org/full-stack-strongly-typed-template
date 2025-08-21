@@ -1,0 +1,18 @@
+<input
+  type="text"
+  matInput
+  [matAutocomplete]="auto"
+  [(ngModel)]="searchContent$"
+  (blur)="blurChange()"
+  [disabled]="disabled$()"
+/>
+<mat-autocomplete #auto="matAutocomplete">
+  @for (item of searchOptions$$(); track $index) {
+    <mat-option
+      [value]="item.value"
+      [matTooltip]="item.description"
+      (onSelectionChange)="searchChange(item)"
+      >{{ item.label }}</mat-option
+    >
+  }
+</mat-autocomplete>

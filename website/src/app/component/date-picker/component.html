@@ -1,0 +1,17 @@
+<mat-date-range-input [rangePicker]="campaignTwoPicker">
+  <input
+    matStartDate
+    [ngModel]="value$()?.[0]"
+    (ngModelChange)="dateChanged($event, 0)"
+  />
+  <input
+    matEndDate
+    [ngModel]="value$()?.[1]"
+    (ngModelChange)="dateChanged($event, 1)"
+  />
+</mat-date-range-input>
+<ng-template #suffix>
+  <mat-datepicker-toggle [for]="campaignTwoPicker"></mat-datepicker-toggle>
+</ng-template>
+
+<mat-date-range-picker #campaignTwoPicker></mat-date-range-picker>

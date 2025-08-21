@@ -1,0 +1,8 @@
+@for (item of options(); track $index) {
+  <mat-checkbox
+    [ngModel]="selectedList()[$index]"
+    (ngModelChange)="selectedChange($event, $index)"
+    class="overflow-hidden"
+    >{{ item.label }}</mat-checkbox
+  >
+}

@@ -1,0 +1,55 @@
+@let props = props$$();
+<mat-form-field
+  [hideRequiredMarker]="true"
+  [floatLabel]="props['floatLabel']"
+  [appearance]="props['appearance'] ?? 'outline'"
+  [subscriptSizing]="props['subscriptSizing']"
+  [color]="props['color'] ?? 'primary'"
+  #formField
+  class="w-full"
+>
+  <ng-container #fieldComponent></ng-container>
+  @if (props['title'] && props['hideLabel'] !== true) {
+    <mat-label>
+      {{ props['title'] }}
+      @if (props['required'] && props['hideRequiredMarker'] !== true) {
+        <span
+          aria-hidden="true"
+          class="mat-form-field-required-marker mat-mdc-form-field-required-marker"
+          >*</span
+        >
+      }
+    </mat-label>
+  }
+  @if (props['iconSuffix']) {
+    <ng-container
+      matIconSuffix
+      [ngTemplateOutlet]="props['iconSuffix']"
+    ></ng-container>
+  }
+  @if (props['description'] || props['hintStart']; as hint) {
+    <mat-hint>
+      <ng-container
+        [ngTemplateOutlet]="strTemplate"
+        [ngTemplateOutletContext]="{ content: hint }"
+      >
+      </ng-container>
+    </mat-hint>
+  }
+  @if (props['hintEnd']; as hintEnd) {
+    <mat-hint align="end">
+      <ng-container
+        [ngTemplateOutlet]="strTemplate"
+        [ngTemplateOutletContext]="{ content: hintEnd }"
+      >
+      </ng-container>
+    </mat-hint>
+  }
+  @if (showError$$()) {
+    <mat-error> {{ errorStr$$() }} </mat-error>
+  }
+</mat-form-field>
+
+<ng-template #strTemplate let-content="content">
+  <ng-container>{{ content }}</ng-container>
+</ng-template>

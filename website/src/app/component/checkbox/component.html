@@ -1,0 +1,8 @@
+<mat-checkbox
+  [indeterminate]="indeterminate()"
+  [color]="color()"
+  [ngModel]="value$()"
+  (ngModelChange)="valueChange($event)"
+>
+  {{ labelMap() ? labelMap()!(value$()) : label() }}
+</mat-checkbox>

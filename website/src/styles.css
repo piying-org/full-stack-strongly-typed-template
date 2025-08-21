@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+@source '../../define/';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+mat-icon.mat-icon {
+  @apply flex-[0_0_auto];
+}
+.navigation-item {
+  @apply flex cursor-pointer items-center gap-2 rounded-md p-2 *:flex-1 border-0;
+}
+.navigation-item:hover {
+  @apply bg-sky-900/10;
+}
+.navigation-item-active {
+  @apply bg-sky-900/10;
+}
+.navigation-item-wrapper {
+  @apply mx-2;
+}
+.navigation-item-title {
+  @apply text-base font-medium;
+}
+.navigation-item-subtitle {
+  @apply text-sm;
+}
+.navigation-item-badge {
+  @apply flex-0;
+}
+.navigation-item-badge-content {
+  @apply flex items-center justify-center;
+}
+.navigation-item-expanded {
+  .navigation-item-arrow {
+    transform: rotate(90deg);
+  }
+}
+.navigation-item-arrow {
+  transition:
+    transform 300ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    color 375ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}

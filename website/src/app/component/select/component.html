@@ -1,0 +1,27 @@
+<mat-select
+  [ngModel]="value$()"
+  (ngModelChange)="valueChange($event)"
+  [disabled]="disabled$()"
+  [compareWith]="compareWith()!"
+>
+  @if (enableSearch()) {
+    <mat-option>
+      <ngx-mat-select-search
+        [(ngModel)]="searchContent$"
+        [placeholderLabel]="searchPlaceholder()"
+        noEntriesFoundLabel="未找到内容"
+        [clearSearchInput]="false"
+      ></ngx-mat-select-search>
+    </mat-option>
+  }
+  @for (
+    item of mode() === 'local'
+      ? searchOptions$$()
+      : (remoteFilter()! | pure: (searchBy() | pure: searchContent$()) | async);
+    track item
+  ) {
+    <mat-option [value]="item.value" [matTooltip]="item.description">
+      {{ item.label }}
+    </mat-option>
+  }
+</mat-select>

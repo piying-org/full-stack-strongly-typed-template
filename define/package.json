@@ -1,0 +1,23 @@
+{
+  "name": "@project/define",
+  "version": "1.0.0",
+  "main": "dist/index.mjs",
+  "types": "./index.ts",
+  "scripts": {
+    "build:dev": "tsx ./script/build.ts",
+    "build:watch": "tsx ./script/build.ts --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@piying/view-angular": "^1.5.2",
+    "@piying/orm": "^1.0.14",
+    "rxjs": "^7.8.2",
+    "semver": "7.7.2",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/semver": "7.7.0"
+  }
+}
