@@ -2,26 +2,22 @@ import * as v from 'valibot';
 import { column, entity, manyToMany } from '@piying/orm/typeorm';
 import { RoleGroup } from './role';
 import {
+  actions,
   asControl,
   asVirtualGroup,
   changeObject,
   formConfig,
   layout,
   NFCSchema,
-  patchAsyncInputs,
-  patchInputs,
-  patchWrappers,
-  setAttributes,
   setComponent,
-  setInputs,
 } from '@piying/view-angular-core';
 import { BaseSchema } from './schema';
 import * as bcrypt from 'bcryptjs';
 import { ApiType, CurdType } from './type';
-import { metadataPipe } from '@piying/valibot-visit';
+import { metadataList } from '@piying/valibot-visit';
 import { ReadOnlyId, ReadOnlyIdFn } from './const.action';
-const PwdConfig = metadataPipe(
-  setAttributes({ type: 'password' }),
+const PwdConfig = metadataList<any>([
+  actions.attributes.set({ type: 'password' }),
   formConfig({
     transfomer: {
       toModel(value, control) {
@@ -29,7 +25,7 @@ const PwdConfig = metadataPipe(
       },
     },
   }),
-);
+]);
 export const Account = v.pipe(
   v.object({
     ...BaseSchema.entries,
@@ -38,7 +34,7 @@ export const Account = v.pipe(
       v.string(),
       v.title('密码'),
       column({ length: 50, select: false }),
-      ...PwdConfig,
+      PwdConfig,
     ),
     mobile: v.pipe(
       v.optional(v.string()),
@@ -70,8 +66,8 @@ export const SetAccountChildren_Save = v.pipe(
       v.array(v.string()),
       asControl(),
       setComponent('checkboxList'),
-      patchInputs({ options: [] }),
-      patchAsyncInputs({
+      actions.inputs.patch({ options: [] }),
+      actions.inputs.patchAsync({
         options: async (field) => {
           const trpc = field.context.trpc as ApiType;
           const result = await trpc.roleGroup.find.mutate({});
@@ -103,7 +99,7 @@ export const RegisterAccountDefine = v.pipe(
           schema,
           layout({ priority: 1 }),
           v.title('重复输入密码'),
-          ...PwdConfig,
+          PwdConfig,
         ),
     },
   ),
@@ -127,39 +123,42 @@ export const Login_View = v.pipe(
     v.pipe(
       NFCSchema,
       setComponent('button'),
-      setInputs({ label: '登录', buttonType: 'submit' }),
+      actions.inputs.set({ label: '登录', buttonType: 'submit' }),
     ),
   ]),
   asVirtualGroup(),
-  patchWrappers({
-    type: 'form',
-    attributes: {
-      class:
-        'flex min-w-0 flex-auto flex-col items-center sm:justify-center h-full',
-    },
-    outputs: {
-      submited: (field: any) => {
-        return field.context.login(field.form.root.value$$());
+  actions.wrappers.patch([
+    {
+      type: 'form',
+      attributes: {
+        class:
+          'flex min-w-0 flex-auto flex-col items-center sm:justify-center h-full',
+      },
+      outputs: {
+        submited: (field: any) => {
+          return field.context.login(field.form.root.value$$());
+        },
       },
     },
-  }),
-  patchWrappers({
-    type: 'block',
-    attributes: {
-      class: 'flex min-w-0 flex-auto flex-col items-center sm:justify-center',
+    {
+      type: 'block',
+      attributes: {
+        class: 'flex min-w-0 flex-auto flex-col items-center sm:justify-center',
+      },
     },
-  }),
-  patchWrappers({
-    type: 'block',
-    attributes: {
-      class:
-        'w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow ',
-    },
-  }),
-  patchWrappers({
-    type: 'block',
-    attributes: { class: 'mx-auto w-full max-w-80 sm:mx-0 sm:w-80' },
-  }),
+    // todo
+    // {
+    //   type: 'block',
+    //   attributes: {
+    //     class:
+    //       'w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow ',
+    //   },
+    // },
+    // {
+    //   type: 'block',
+    //   attributes: { class: 'mx-auto w-full max-w-80 sm:mx-0 sm:w-80' },
+    // },
+  ]),
 );
 
 export const Account_View = v.pipe(
@@ -169,10 +168,10 @@ export const Account_View = v.pipe(
         table: v.pipe(
           NFCSchema,
           setComponent('table'),
-          setInputs({
+          actions.inputs.set({
             searchParams: undefined,
           }),
-          patchAsyncInputs({
+          actions.inputs.patchAsync({
             service: (field) => {
               const trpc = field.context.trpc as ApiType;
               return {

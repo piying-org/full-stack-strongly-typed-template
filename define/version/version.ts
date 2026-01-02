@@ -8,14 +8,12 @@ import {
   oneToMany,
 } from '@piying/orm/core';
 import {
+  actions,
   asVirtualGroup,
   changeObject,
   NFCSchema,
   outputChange,
-  patchAsyncInputs,
   setComponent,
-  setInputs,
-  topClass,
 } from '@piying/view-angular-core';
 import { valid } from 'semver';
 import { ApiType, CurdType } from '../type';
@@ -117,7 +115,7 @@ export const Version_View = v.pipe(
           ),
         }),
         setComponent('remote-search-group'),
-        topClass('noValid'),
+        actions.class.top('noValid'),
         outputChange((fn) => {
           fn([{ list: undefined, output: 'groupChange' }]).subscribe(
             ({ list: [[params]], field }) => {
@@ -134,10 +132,10 @@ export const Version_View = v.pipe(
         table: v.pipe(
           NFCSchema,
           setComponent('table'),
-          setInputs({
+          actions.inputs.set({
             searchParams: undefined,
           }),
-          patchAsyncInputs({
+          actions.inputs.patchAsync({
             service: (field) => {
               const trpc = field.context.trpc as ApiType;
               return {
@@ -217,12 +215,12 @@ export const Version_View = v.pipe(
 const VersionAssetView = v.pipe(
   NFCSchema,
   setComponent('table'),
-  setInputs({
+  actions.inputs.set({
     gate: {
       addItem: false,
     },
   }),
-  patchAsyncInputs({
+  actions.inputs.patchAsync({
     service: (field) => {
       const trpc = field.context.trpc as ApiType;
       const versionData = field.context.versionData;

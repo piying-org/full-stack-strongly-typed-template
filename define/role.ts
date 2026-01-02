@@ -2,23 +2,21 @@ import * as v from 'valibot';
 import { BaseSchema } from './schema';
 import { column, manyToMany } from '@piying/orm/core';
 import {
+  actions,
   asVirtualGroup,
   formConfig,
   NFCSchema,
-  patchAsyncInputs,
-  patchInputs,
   setComponent,
-  setInputs,
 } from '@piying/view-angular-core';
 import { ApiType, CurdType } from './type';
 import {
   asControl,
   changeObject,
-  metadataPipe,
+  metadataList,
   omitIntersect,
 } from '@piying/valibot-visit';
 import { ReadOnlyId, ReadOnlyIdFn } from './const.action';
-const CheckBoxConfig = metadataPipe(
+const CheckBoxConfig = metadataList<any>([
   setComponent('checkbox'),
   formConfig({
     transfomer: {
@@ -30,7 +28,7 @@ const CheckBoxConfig = metadataPipe(
       },
     },
   }),
-);
+]);
 export const RoleGroup = v.pipe(
   v.intersect([
     v.object({
@@ -40,7 +38,7 @@ export const RoleGroup = v.pipe(
         v.optional(v.number(), 0),
         v.description('用户组类型0系统,1用户'),
         column({}),
-        ...CheckBoxConfig,
+        CheckBoxConfig,
       ),
       children: v.pipe(
         v.lazy(() => v.array(Role)),
@@ -68,7 +66,7 @@ export const Role = v.pipe(
         v.description('0通用,1:表示接口(API),2:网页使用'),
         column({}),
         setComponent('checkbox'),
-        ...CheckBoxConfig,
+        CheckBoxConfig,
       ),
       isDefault: v.pipe(
         v.optional(v.number(), 0),
@@ -102,8 +100,8 @@ export const SetRoleGroupChildren_Save = v.pipe(
       v.array(v.string()),
       asControl(),
       setComponent('checkboxList'),
-      patchInputs({ options: [] }),
-      patchAsyncInputs({
+      actions.inputs.patch({ options: [] }),
+      actions.inputs.patchAsync({
         options: async (field) => {
           const trpc = field.context.trpc as ApiType;
           const result = await trpc.role.find.mutate({});
@@ -123,10 +121,10 @@ export const Role_View = v.pipe(
         table: v.pipe(
           NFCSchema,
           setComponent('table'),
-          setInputs({
+          actions.inputs.set({
             searchParams: undefined,
           }),
-          patchAsyncInputs({
+          actions.inputs.patchAsync({
             service: (field) => {
               const trpc = field.context.trpc as ApiType;
               return {
@@ -207,10 +205,10 @@ export const RoleGroup_View = v.pipe(
         table: v.pipe(
           NFCSchema,
           setComponent('table'),
-          setInputs({
+          actions.inputs.set({
             searchParams: undefined,
           }),
-          patchAsyncInputs({
+          actions.inputs.patchAsync({
             service: (field) => {
               const trpc = field.context.trpc as ApiType;
               return {

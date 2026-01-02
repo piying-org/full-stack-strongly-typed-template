@@ -1,19 +1,30 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PurePipe } from '@cyia/ngx-common/pipe';
 import { from, map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { PiyingViewWrapperBase } from '@piying/view-angular';
+import {
+  PI_VIEW_FIELD_TOKEN,
+  InsertFieldDirective,
+} from '@piying/view-angular';
 
 @Component({
   selector: 'tooltip-wrapper',
   templateUrl: './component.html',
   standalone: true,
-  imports: [MatTooltipModule, PurePipe, AsyncPipe],
+  imports: [MatTooltipModule, PurePipe, AsyncPipe, InsertFieldDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TooltipWrapper extends PiyingViewWrapperBase {
+export class TooltipWrapper {
+  field$$ = inject(PI_VIEW_FIELD_TOKEN);
+  props$$ = computed(() => this.field$$().props());
   tooltipType = input<'value' | 'tooltip' | 'title' | undefined>();
   tooltipContent = (...args: any) => {
     if (this.tooltipType() === 'value') {

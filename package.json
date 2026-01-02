@@ -23,7 +23,7 @@
     "@types/eslint": "9.6.1",
     "@typescript-eslint/eslint-plugin": "8.14.0",
     "@typescript-eslint/parser": "8.14.0",
-    "esbuild": "^0.25.9",
+    "esbuild": "^0.27.2",
     "esbuild-plugin-clean": "^1.0.1",
     "esbuild-plugin-copy": "^2.1.1",
     "eslint": "9.30.1",

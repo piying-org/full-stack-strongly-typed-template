@@ -5,7 +5,7 @@ import {
   Version_Entity,
   VersionAsset_Entity,
 } from '@project/define';
-import { convert } from '@piying/orm/typeorm';
+import { convert, DEFAULT_ORM_CONFIG } from '@piying/orm/typeorm';
 import { InjectionToken, Injector, createInjector } from 'static-injector';
 import { DATA_SOURCE } from './token';
 import { DataSourceOptions, EntitySchema } from 'typeorm';
@@ -39,6 +39,13 @@ export function createDefine(
         ...(options as any),
       },
       injector,
+      defaultConfig: {
+        types: {
+          ...DEFAULT_ORM_CONFIG.types,
+          // todo 临时
+          checkbox: { type: Number },
+        },
+      },
     },
   );
 

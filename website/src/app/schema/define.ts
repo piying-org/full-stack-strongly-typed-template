@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { DefaultValueAccessor } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
-import { PiComponentDefaultConfig } from '@piying/view-angular';
+import { actions } from '@piying/view-angular';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { WrapperCard } from '../wrapper/card/component';
@@ -9,39 +9,44 @@ import { NumberValueAccessor } from '@angular/forms';
 import { CheckboxFCC, LabelFCC, SelectFCC } from '../component';
 import { ButtonNFCC } from '../component/button/button.component';
 import { FormFiledContentDirective } from '../directive';
-export const InputConfig: PiComponentDefaultConfig = {
-  type: 'input',
-  wrappers: ['form-field'],
-  directives: [
-    { type: MatInput, selector: 'matInput' },
-    { type: DefaultValueAccessor, selector: 'formControl' },
+import { PiViewConfig } from '@piying/view-angular';
+import { InputFCC } from '../component/input';
+import { TextareaFCC } from '../component/textarea';
+import { InputNumberFCC } from '../component/input-number';
+type PiComponentDefaultConfig = NonNullable<PiViewConfig['types']>[string];
+export const InputConfig: NonNullable<PiViewConfig['types']>[string] = {
+  type: InputFCC,
+  actions: [
+    actions.wrappers.set(['form-field']),
+    actions.directives.set([{ type: MatInput }]),
   ],
 };
 export const TextareaConfig: PiComponentDefaultConfig = {
-  type: 'textarea',
-  wrappers: ['form-field'],
-  directives: [
-    { type: MatInput, selector: 'matInput' },
-    { type: DefaultValueAccessor, selector: 'formControl' },
-    {
-      type: CdkTextareaAutosize,
-      selector: 'cdkTextareaAutosize',
-      inputs: signal({ cdkTextareaAutosize: true }),
-    },
+  type: TextareaFCC,
+  actions: [
+    actions.wrappers.set(['form-field']),
+    actions.directives.set([
+      { type: MatInput },
+      {
+        type: CdkTextareaAutosize,
+        inputs: { cdkTextareaAutosize: true },
+      },
+    ]),
   ],
 };
 export const NumberConfig: PiComponentDefaultConfig = {
-  type: 'input',
-  attributes: {
-    type: 'number',
-  },
-  wrappers: ['form-field'],
-  directives: [
-    {
-      type: MatInput,
-      selector: 'matInput',
-    },
-    { type: NumberValueAccessor, selector: 'formControl' },
+  type: InputNumberFCC,
+  actions: [
+    actions.attributes.set({
+      type: 'number',
+    }),
+    actions.wrappers.set(['form-field']),
+    actions.directives.set([
+      {
+        type: MatInput,
+      },
+      { type: NumberValueAccessor },
+    ]),
   ],
 };
 export const CheckboxConfig: PiComponentDefaultConfig = {
@@ -50,8 +55,7 @@ export const CheckboxConfig: PiComponentDefaultConfig = {
 
 export const IconButtonConfig: PiComponentDefaultConfig = {
   type: { component: MatIconButton, module: MatButtonModule },
-  selector: 'button',
-  attributes: { 'mat-icon-button': '' },
+  actions: [actions.attributes.set({ 'mat-icon-button': '' })],
 };
 // button
 export const ButtonConfig: PiComponentDefaultConfig = {
@@ -61,17 +65,19 @@ export const ButtonConfig: PiComponentDefaultConfig = {
 //select
 export const SelectConfig: PiComponentDefaultConfig = {
   type: SelectFCC,
-  directives: [
-    {
-      type: FormFiledContentDirective,
-      inputs: signal({
-        focusSelector: '.mat-mdc-select-trigger',
-        focusAction: 'click',
-        controlType: 'mat-select',
-      }),
-    },
+  actions: [
+    actions.directives.set([
+      {
+        type: FormFiledContentDirective,
+        inputs: {
+          focusSelector: '.mat-mdc-select-trigger',
+          focusAction: 'click',
+          controlType: 'mat-select',
+        },
+      },
+    ]),
+    actions.wrappers.set(['form-field']),
   ],
-  wrappers: ['form-field'],
 };
 
 //label

@@ -17,7 +17,7 @@
     "lodash-es": "^4.17.21",
     "pino-pretty": "^13.0.0",
     "static-injector": "^6.1.2",
-    "@piying/orm": "^1.0.14"
+    "@piying/orm": "^1.0.15"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
