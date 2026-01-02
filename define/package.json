@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@piying/view-angular": "2.0.8",
+    "@piying/view-angular": "2.0.9",
     "@piying/orm": "^1.0.15",
     "rxjs": "^7.8.2",
     "semver": "7.7.2",

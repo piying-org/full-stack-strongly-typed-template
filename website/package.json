@@ -18,7 +18,7 @@
     "@angular/material": "~20.0.3",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
-    "@piying/view-angular": "^2.0.8",
+    "@piying/view-angular": "^2.0.9",
     "@cyia/ngx-common": "^20.0.3",
     "@tailwindcss/postcss": "^4.1.10",
     "postcss": "^8.5.6",

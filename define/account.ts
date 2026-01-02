@@ -146,18 +146,17 @@ export const Login_View = v.pipe(
         class: 'flex min-w-0 flex-auto flex-col items-center sm:justify-center',
       },
     },
-    // todo
-    // {
-    //   type: 'block',
-    //   attributes: {
-    //     class:
-    //       'w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow ',
-    //   },
-    // },
-    // {
-    //   type: 'block',
-    //   attributes: { class: 'mx-auto w-full max-w-80 sm:mx-0 sm:w-80' },
-    // },
+    {
+      type: 'block',
+      attributes: {
+        class:
+          'w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow ',
+      },
+    },
+    {
+      type: 'block',
+      attributes: { class: 'mx-auto w-full max-w-80 sm:mx-0 sm:w-80' },
+    },
   ]),
 );
 
