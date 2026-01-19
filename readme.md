@@ -14,6 +14,6 @@
 
 ## run
 
-- npm i
+- pnpm i
 - npm run init
 - npm start
