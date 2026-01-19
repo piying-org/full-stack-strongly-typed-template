@@ -1,0 +1,9 @@
+packages:
+  - ./define
+  - ./backend
+  - ./website
+  - ./ts-env
+
+onlyBuiltDependencies:
+  - esbuild
+  - better-sqlite3

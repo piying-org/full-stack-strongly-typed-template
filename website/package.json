@@ -18,7 +18,9 @@
     "@angular/material": "~20.0.3",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
-    "@piying/view-angular": "^2.0.9",
+    "@piying/view-angular": "2.3.1",
+    "@piying/view-angular-core": "2.3.1",
+    "@piying/valibot-visit": "1.3.7",
     "@cyia/ngx-common": "^20.0.3",
     "@tailwindcss/postcss": "^4.1.10",
     "postcss": "^8.5.6",
@@ -27,7 +29,8 @@
     "tslib": "^2.3.0",
     "@fontsource/roboto": "^5.2.6",
     "material-icons": "^1.13.14",
-    "ngx-mat-select-search": "^8.0.2"
+    "ngx-mat-select-search": "^8.0.2",
+    "@project/define": "workspace:*"
   },
   "devDependencies": {
     "@angular/build": "^20.0.3",
@@ -40,6 +43,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.8.2",
+    "@types/semver": "7.7.0"
   }
 }

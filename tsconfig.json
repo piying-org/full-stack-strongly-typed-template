@@ -18,9 +18,6 @@
       "@@router": [
         "./backend/src/router"
       ],
-      "@project/define": [
-        "./define/index.ts"
-      ],
       "@project/backend": [
         "./backend/src/output/trpc-api.ts"
       ]
